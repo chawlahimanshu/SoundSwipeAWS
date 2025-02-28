@@ -38,8 +38,10 @@ const Login = () => {
   }, []);
   
   const handleLogin = () => {
-    window.location.href = "http://localhost:3001/login";
+    const redirectUri = `${window.location.origin}/login`;
+    window.location.href = redirectUri;
   };
+  
   
   return (
     <div className="App">
