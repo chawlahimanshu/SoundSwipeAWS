@@ -38,11 +38,20 @@ const Login = () => {
   }, []);
   
   const handleLogin = () => {
+    console.log("Client ID:", process.env.REACT_APP_SPOTIFY_CLIENT_ID);
+    console.log("Redirect URI:", process.env.REACT_APP_SPOTIFY_REDIRECT_URI);
+
     const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
     const redirectUri = process.env.REACT_APP_SPOTIFY_REDIRECT_URI;
 
+    if (!clientId || !redirectUri) {
+        alert("Missing environment variables! Check AWS Amplify settings.");
+        return;
+    }
+
     window.location.href = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&redirect_uri=${encodeURIComponent(redirectUri)}&scope=user-read-private user-read-email`;
 };
+
 
   
   
