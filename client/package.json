@@ -21,7 +21,7 @@
 
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "REACT_APP_SPOTIFY_CLIENT_ID=$REACT_APP_SPOTIFY_CLIENT_ID REACT_APP_SPOTIFY_REDIRECT_URI=$REACT_APP_SPOTIFY_REDIRECT_URI react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
