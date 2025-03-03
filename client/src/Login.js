@@ -4,17 +4,14 @@ import './App.css';
 const Login = () => {
   const interBubbleRef = useRef(null);
   const containerRef = useRef(null);
-  
+
   useEffect(() => {
     const interBubble = interBubbleRef.current;
     const container = containerRef.current;
     if (!interBubble || !container) return;
-    
-    let curX = 0;
-    let curY = 0;
-    let tgX = 0;
-    let tgY = 0;
-    
+
+    let curX = 0, curY = 0, tgX = 0, tgY = 0;
+
     function move() {
       curX += (tgX - curX) / 20;
       curY += (tgY - curY) / 20;
@@ -23,38 +20,33 @@ const Login = () => {
       }
       requestAnimationFrame(move);
     }
-    
+
     function handleMouseMove(event) {
       const rect = container.getBoundingClientRect();
       tgX = event.clientX - rect.left;
       tgY = event.clientY - rect.top;
     }
+
     container.addEventListener('mousemove', handleMouseMove);
     move();
-    
+
     return () => {
       container.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
-  
-  const handleLogin = () => {
-    console.log("Client ID:", process.env.REACT_APP_SPOTIFY_CLIENT_ID);
-    console.log("Redirect URI:", process.env.REACT_APP_SPOTIFY_REDIRECT_URI);
 
+  const handleLogin = () => {
     const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
     const redirectUri = process.env.REACT_APP_SPOTIFY_REDIRECT_URI;
 
     if (!clientId || !redirectUri) {
-        alert("Missing environment variables! Check AWS Amplify settings.");
-        return;
+      alert("❌ Missing environment variables! Check AWS Amplify settings.");
+      return;
     }
 
     window.location.href = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&redirect_uri=${encodeURIComponent(redirectUri)}&scope=user-read-private user-read-email`;
-};
+  };
 
-
-  
-  
   return (
     <div className="App">
       <div ref={containerRef} className="gradient-bg">
@@ -72,7 +64,7 @@ const Login = () => {
             </filter>
           </defs>
         </svg>
-        
+
         <div className="gradients-container">
           <div className="g1"></div>
           <div className="g2"></div>
@@ -81,6 +73,7 @@ const Login = () => {
           <div className="g5"></div>
           <div className="interactive" ref={interBubbleRef}></div>
         </div>
+
         <div className="text-container" style={{ pointerEvents: 'none' }}>
           <div className="login-content" style={{ pointerEvents: 'auto' }}>
             <h1>Welcome to <span className="swipe-text">SoundSwipe
