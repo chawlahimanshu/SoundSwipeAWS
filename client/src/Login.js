@@ -38,9 +38,12 @@ const Login = () => {
   }, []);
   
   const handleLogin = () => {
-    const redirectUri = `${window.location.origin}/login`;
-    window.location.href = redirectUri;
-  };
+    const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
+    const redirectUri = process.env.REACT_APP_SPOTIFY_REDIRECT_URI;
+
+    window.location.href = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&redirect_uri=${encodeURIComponent(redirectUri)}&scope=user-read-private user-read-email`;
+};
+
   
   
   return (
